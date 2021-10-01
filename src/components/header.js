@@ -35,6 +35,7 @@ const Header = (title, date, temp) => {
 }
 
 const headerAppender = (selector) => {
+  
   // TASK 2
   // ---------------------
   // Implement this function taking a css selector as its only argument.
@@ -42,6 +43,11 @@ const headerAppender = (selector) => {
   // It should append the header to the element in the DOM that matches the given selector.
   //
   
+  let headerCb = Header('arg1', 'arg2', 'arg3'); // pass in arguments inside the parameters
+  let headerContainer = document.querySelector(selector);
+
+  headerContainer.appendChild(headerCb);
+
 }
 
 export { Header, headerAppender }
