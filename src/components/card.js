@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -17,38 +19,39 @@ const Card = (article) => {
   //   </div>
   // </div>
   //
-
-  const card = document.querySelector('.cards-container');
-
-  const cards = document.createElement('div');
+// **** Create Elements ****
+  const card = document.createElement('div');
   const headline = document.createElement('div');
   const author = document.createElement('div');
-  const imageContainer = document.createElement('img');
+  const imageContainer = document.createElement('div');
   const authorPhoto = document.createElement('img');
   const authorName = document.createElement('span');
   
-  cards.appendChild(headline);
-  cards.appendChild(author);
+// **** AppendChild ****
+  card.appendChild(headline);
+  card.appendChild(author);
   author.appendChild(imageContainer);
   author.appendChild(authorName);
-  
-  cards.classList.add('card');
+  imageContainer.appendChild(authorPhoto);
+
+// **** Add Class ****
+  card.classList.add('card');
   headline.classList.add('headline');
   author.classList.add('author');
   imageContainer.classList.add('img-container');
-  
 
-  headline.textContext = article.data.headline;
-  authorPhoto.src = article.data.authorPhoto;
-  authorName.textContext = `By ${article.data.authorName}`;
+// **** addContent ****
+  headline.textContent = article.headline; // used dot notation
+  authorPhoto.src = article.authorPhoto; // used dot notation
+  authorName.textContent = `By ${article.authorName}`; // used dot notation
 
-  console.log(headline);
-
+// **** Add Event Listener ****
   card.addEventListener('click', () => {
-    console.log();
+    headline.classList.toggle(console.log(article.headline));
+  
   })
 
-  return cards;
+  return card;
 
 }
 
@@ -61,6 +64,28 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+
+  let cardContainer = document.querySelector(selector);
+
+  axios.get(`http://localhost:5000/api/articles`)
+  
+  .then(resp => {
+
+    // console.log(resp);
+
+    let list = resp.data.articles;
+
+    for(let key in list) { // refers back to the element that I created on line 77
+
+      list[key].forEach(function(element) {
+        let cardCb = Card(element);
+        cardContainer.appendChild(cardCb);
+
+      });
+    }
+  })
+  .catch(err =>
+    console.log(err))
 }
 
 export { Card, cardAppender }

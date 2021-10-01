@@ -16,26 +16,18 @@ const Tabs = (topics) => {
   // </div>
   //
 
-  const topic = document.createElement('div');
-  const javaScriptTab = document.createElement('div');
-  const bootStrapTab = document.createElement('div');
-  const technologyTab = document.createElement('div');
+  const topicsDiv = document.createElement('div');
+    topicsDiv.classList.add('topics');
 
-  topic.appendChild(javaScriptTab);
-  topic.appendChild(bootStrapTab);
-  topic.appendChild(technologyTab);
+    
+    topics.forEach(element => { // make a dynamic function
+      let random = document.createElement("div");
+      random.classList.add("tab");
+      random.textContent = element;
+      topicsDiv.appendChild(random);
+    });
 
-  topic.classList.add('topics');
-  javaScriptTab.classList.add('tab');
-  bootStrapTab.classList.add('tab');
-  technologyTab.classList.add('tab');
-
-  javaScriptTab.textContent = topics[0];
-  bootStrapTab.textContent = topics[1];
-  technologyTab.textContent = topics[2];
-
-  return topic;
-
+    return topicsDiv;
 }
 
 const tabsAppender = (selector) => {
@@ -43,29 +35,30 @@ const tabsAppender = (selector) => {
   // ---------------------
   // Implement this function which takes a css selector as its only argument.
   // It should obtain topics from this endpoint: `http://localhost:5000/api/topics` (test it in Postman/HTTPie!).
-  // Find the array of topics inside the response, and create the tabs using the Tabs component.
+  // Find the array of topics inside the response, and create the tabs using the Tabs component. // a function designed to create a NODE
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
 
+  let tabSelector = document.querySelector(selector); // implement a function that takes a CSS selector as its only argument
+
   axios.get(`http://localhost:5000/api/topics`)
-  
-  .then(response => {
 
-    let tabsCb = Tabs(response.data.topics); // pass in arguments inside the parameters
-    let tabs = document.querySelector(selector);
+  .then(resp => {
+    console.log(resp); // URL is an API call // URL designed to be targeted to receive information // get data back
+    
+    let gitInfo = resp.data.topics;
 
-    tabs.appendChild(tabsCb);
+    let tabsCb = Tabs(gitInfo);  // pass in the data inside the Tabs function from Task 3 // DOM NODE // floating data in your console //
 
+    tabSelector.appendChild(tabsCb);
 
-
-    // const tabs = response.data.topics;
-    // console.log(tabs);
-    // const tabsOne = document.querySelector(selector);
-    // console.log(tabsOne);
-    // tabsOne.appendChild(Tabs(tabs));
   })
 
-  .then(err => {
+  .catch(err => {
+    console.log(err);
+  })
+
+  .finally(err => {
     console.log(err);
   })
 

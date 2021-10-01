@@ -13,19 +13,26 @@ const Header = (title, date, temp) => {
   //
   
   // *** Create Elements ***
+
   const header = document.createElement('div');
   const headerDate = document.createElement('span');
   const headerTitle = document.createElement('h1');
   const headerTemp = document.createElement('span');
+
   // *** Append ***
+
   header.appendChild(headerDate);
   header.appendChild(headerTitle);
   header.appendChild(headerTemp);
+
   // *** Add Classes ***
+
   header.classList.add('header');
   headerDate.classList.add('date');
   headerTemp.classList.add('temp');
+
   // *** Add Text Content ***
+
   headerDate.textContent = date;
   headerTitle.textContent = title;
   headerTemp.textContent = temp;
@@ -34,7 +41,7 @@ const Header = (title, date, temp) => {
 
 }
 
-const headerAppender = (selector) => {
+const headerAppender = (selector) => { // selector = argument
   
   // TASK 2
   // ---------------------
@@ -43,10 +50,13 @@ const headerAppender = (selector) => {
   // It should append the header to the element in the DOM that matches the given selector.
   //
   
-  let headerCb = Header('arg1', 'arg2', 'arg3'); // pass in arguments inside the parameters
-  let headerContainer = document.querySelector(selector);
+  
+  // pass in arguments inside the parameters inside the function Header(arg,arg2,arg3)
+  let headerCb = Header("The Lambda Times", "January 6, 2021", "26F"); // invoking a function inside the element headerCb
+  
+  let headerContainer = document.querySelector(selector); // querySelect the argument selector
 
-  headerContainer.appendChild(headerCb);
+  headerContainer.appendChild(headerCb); // 'headerCb' Child Element gets append into 'headerContainer'
 
 }
 
